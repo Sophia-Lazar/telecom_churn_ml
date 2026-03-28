@@ -197,7 +197,8 @@ Possible enhancements include
 
 ## Author
 
+```
 Sophia Lazar
 Machine Learning Enthusiast
-
+```
 ---
