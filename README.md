@@ -129,6 +129,7 @@ Based on the analysis
 
 ### Project Structure
 
+```
 telecom_churn_ml/ 
 │ ├── data/ 
 │     ├── raw/ 
@@ -151,6 +152,7 @@ telecom_churn_ml/
 ├── .gitignore 
 ├── README.md 
 └── requirements.txt
+```
     
 ---
 
