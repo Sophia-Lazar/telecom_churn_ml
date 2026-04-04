@@ -7,6 +7,56 @@ The goal is to identify high-risk customers so that businesses can take proactiv
 
 ---
 
+## 🚀 Live API
+The model is deployed as a REST API using FastAPI and is publicly accessible.
+
+Base URL:
+https://churn-api-l4sm.onrender.com
+
+### API Endpoint
+
+**POST /predict**
+
+#### Example Request:
+```json
+{
+  "gender": "Male",
+  "SeniorCitizen": 0,
+  "Partner": "Yes",
+  "Dependents": "No",
+  "tenure": 12,
+  "PhoneService": "Yes",
+  "MultipleLines": "No",
+  "InternetService": "Fiber optic",
+  "OnlineSecurity": "No",
+  "OnlineBackup": "Yes",
+  "DeviceProtection": "No",
+  "TechSupport": "No",
+  "StreamingTV": "Yes",
+  "StreamingMovies": "No",
+  "Contract": "Month-to-month",
+  "PaperlessBilling": "Yes",
+  "PaymentMethod": "Electronic check",
+  "MonthlyCharges": 70.5,
+  "TotalCharges": 850
+}
+```
+
+#### Example Response:
+``` json
+{
+    "prediction": 1,
+    "churn_probability": 0.77
+}
+```
+
+### API Documentaion
+
+Interactive Swagger UI:
+https://churn-api-l4sm.onrender.com/docs
+
+
+
 ## Dataset
 
 Dataset: **"Telco Customer Churn Dataset"**
@@ -47,11 +97,16 @@ Key analyses included:
 * Monthly charges vs churn 
 * Correlation analysis
 
-### 3.Feature Engineering
+### 3.Feature Engineering and pipeline
 
-* Removed unnecessary columns
-* One-hot encoding for categorical variables
-* Train-test split
+A full preprocessing pipeline was built using:
+
+* ColumnTransformer
+* OneHotEncoder for categorical variables
+* StandardScaler for numerical variables
+* Handling missing values using SimpleImputer
+
+This ensures that the model can handle raw input data directly during prediction.
 
 ### 4.Model Training
 
@@ -79,6 +134,30 @@ Models were evaluated using multiple metrics
 * F1 score
 * Precision
 * ROC-AUC
+
+## Model Deployment
+
+
+The final model is deployed as a production-ready API using:
+
+* FastAPI for serving predictions
+* Uvicorn as ASGI server
+* Render for cloud deployment
+
+### Deployment Pipeline
+
+Raw Input (JSON)
+↓
+FastAPI Endpoint
+↓
+Preprocessing Pipeline (Encoding + Scaling)
+↓
+Trained Model
+↓
+Prediction Output
+
+This setup allows real-time predictions and integration with external systems.
+
 
 Model performance
 
@@ -134,7 +213,12 @@ telecom_churn_ml/
 │ ├── data/ 
 │     ├── raw/ 
 │     └── processed/ 
+│ ├── deployment/
+│     ├── main.py
+│     ├── requirements.txt
+│     ├── schema.py
 │ ├── models/
+│     ├── churn_pipeline.pkl
 │     ├── final_churn_model.pkl
 │     ├── logistic_cw_pipeline.pkl
 │     ├── logistic_smote_pipeline.pkl
@@ -149,7 +233,10 @@ telecom_churn_ml/
 │     └── 05_model_evaluation.ipynb 
 │
 │ ├── src/ 
+│     ├── __init__.py
+│     ├── train_pipeline.py
 ├── .gitignore 
+├── procfile
 ├── README.md 
 └── requirements.txt
 ```
@@ -166,6 +253,25 @@ telecom_churn_ml/
 * Seaborn 
 * XGBoost 
 * Imbalanced-learn
+
+## Key Skills Demonstrated
+
+* End-to-End Machine Learning Pipeline Development
+* Data Cleaning and Feature Engineering
+* Handling Class Imbalance(SMOTE, Class Weights)
+* Model Evaluation and Hyperparameter Tuning
+* Pipeline Building with scikit-learn
+* API Development using FastAPI
+* Cloud Deployment (Render)
+* Production-ready ML System Design
+
+## 📸 API Preview
+
+### Swagger UI
+![Swagger](images/swagger_UI.PNG)
+
+### Prediction Output
+![Prediction](images/prediction.PNG)
 
 ## How to run the project
 
@@ -188,10 +294,10 @@ Run notebooks in order
 
 Possible enhancements include
 
-**API Development & Deployment**
-* Build a REST API using FastAPI to serve real-time churn predictions
-* Deploy the model as a web service using cloud platforms (AWS / Render / Railway)
-* Enable easy integration with external business applications
+* Add Streamlit frontend for user interaction
+* Implement Docker containerization
+* Deploy on AWS/GCP for scalability
+* Add model monitoring and logging
 
 ---
 
