@@ -265,13 +265,13 @@ telecom_churn_ml/
 * Cloud Deployment (Render)
 * Production-ready ML System Design
 
-## 📸 API Preview
+## 📸 API PreviewS
 
 ### Swagger UI
-![Swagger](images/swagger_UI.PNG)
+![Swagger](images/Swagger_UI.PNG)
 
 ### Prediction Output
-![Prediction](images/prediction.PNG)
+![Prediction](images/Prediction.PNG)
 
 ## How to run the project
 
